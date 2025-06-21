@@ -6,11 +6,18 @@ interface Props {
   todos: Todo[];
   handleChangeProps: (id: string) => void;
   deleteTodoProps: (id: string) => void;
+  title: string;
 }
 
-const TodosList = ({ deleteTodoProps, handleChangeProps, todos }: Props) => {
+const TodosList = ({
+  deleteTodoProps,
+  handleChangeProps,
+  todos,
+  title,
+}: Props) => {
   return (
-    <div>
+    <div style={{ marginTop: "20px", width: "45%" }}>
+      <h2>{title}</h2>
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}

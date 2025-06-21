@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import TodosList from "./TodosList";
 import Header from "./Header";
 import InputTodo from "./InputTodo";
@@ -57,15 +57,39 @@ const TodoContainer = () => {
     setTodos((prevTodos) => [...prevTodos, newTodo]);
   };
 
+  const pendingTodos = useMemo(() => {
+    return todos.filter((todo) => !todo.completed);
+  }, [todos]);
+
+  
+  const completedTodos = useMemo(() => {
+    return todos.filter((todo) => todo.completed);
+  }, [todos]);
+  
   return (
     <div className="container">
       <Header />
       <InputTodo addTodoProps={addTodoItem} />
-      <TodosList
-        todos={todos}
-        handleChangeProps={handleChange}
-        deleteTodoProps={delTodo}
-      />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          width: "100%",
+        }}
+      >
+        <TodosList
+          todos={pendingTodos}
+          handleChangeProps={handleChange}
+          deleteTodoProps={delTodo}
+          title="To Do"
+        />
+        <TodosList
+          todos={completedTodos}
+          handleChangeProps={handleChange}
+          deleteTodoProps={delTodo}
+          title="Done"
+        />
+      </div>
     </div>
   );
 };
