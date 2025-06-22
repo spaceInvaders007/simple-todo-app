@@ -4,7 +4,7 @@ import Header from "./Header";
 import InputTodo from "./InputTodo";
 import { v4 as uuidv4 } from "uuid";
 
-interface Todo {
+export interface Todo {
   id: string;
   title: string;
   completed: boolean;
