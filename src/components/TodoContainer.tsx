@@ -8,6 +8,7 @@ export interface Todo {
   id: string;
   title: string;
   completed: boolean;
+  tags?: string[];
 }
 
 const TodoContainer = () => {
@@ -57,6 +58,16 @@ const TodoContainer = () => {
     setTodos((prevTodos) => [...prevTodos, newTodo]);
   }, []);
 
+  const addTag = useCallback((id: string, newTag: string) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id
+          ? { ...todo, tags: [...(todo.tags || []), newTag] }
+          : todo
+      )
+    );
+  }, []);
+
   const pendingTodos = useMemo(
     () => todos.filter((todo) => !todo.completed),
     [todos]
@@ -83,12 +94,14 @@ const TodoContainer = () => {
           handleChangeProps={handleChange}
           deleteTodoProps={delTodo}
           title="Pending"
+          addTag={addTag}
         />
         <TodosList
           todos={completedTodos}
           handleChangeProps={handleChange}
           deleteTodoProps={delTodo}
           title="Done"
+          addTag={addTag}
         />
       </div>
     </div>
