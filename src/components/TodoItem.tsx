@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useCallback, useState } from "react";
 import { Todo } from "./TodoContainer";
 
 interface Props {
@@ -21,11 +21,11 @@ const TodoItem = memo(
 
     const { completed, id, title, tags } = todo;
 
-    const handleTagChange = () => {
+    const handleTagChange = useCallback(() => {
       if (tag.trim() === "") return;
       addTag(id, tag.trim());
       setTag("");
-    };
+    }, []);
 
     return (
       <li className="todo-item">
