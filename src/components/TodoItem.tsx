@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Todo } from "./TodoContainer";
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   todo: Todo;
 }
 
-const TodoItem = ({ deleteTodoProps, handleChangeProps, todo }: Props) => {
+const TodoItem = memo(({ deleteTodoProps, handleChangeProps, todo }: Props) => {
   const completedStyle = {
     fontStyle: "italic",
     color: "#d35e0f",
@@ -28,6 +28,6 @@ const TodoItem = ({ deleteTodoProps, handleChangeProps, todo }: Props) => {
       <span style={completed ? completedStyle : undefined}>{title}</span>
     </li>
   );
-};
+})
 
 export default TodoItem;
