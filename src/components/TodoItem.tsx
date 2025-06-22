@@ -25,7 +25,7 @@ const TodoItem = memo(
       if (tag.trim() === "") return;
       addTag(id, tag.trim());
       setTag("");
-    }, []);
+    }, [addTag, id, tag]);
 
     return (
       <li className="todo-item">
