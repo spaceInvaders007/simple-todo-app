@@ -9,6 +9,7 @@ export interface Todo {
   title: string;
   completed: boolean;
   tags?: string[];
+  assignedTo?: string;
 }
 
 const TodoContainer = () => {
@@ -32,12 +33,9 @@ const TodoContainer = () => {
 
   const handleChange = useCallback((id: string) => {
     setTodos((prevTodos) =>
-      prevTodos.map((todo) => {
-        if (todo.id === id) {
-          todo.completed = !todo.completed;
-        }
-        return todo;
-      })
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
     );
   }, []);
 
@@ -57,7 +55,7 @@ const TodoContainer = () => {
     };
     setTodos((prevTodos) => [...prevTodos, newTodo]);
   }, []);
-
+console.log(todos, 'todos')
   const addTag = useCallback((id: string, newTag: string) => {
     setTodos((prevTodos) =>
       prevTodos.map((todo) =>
@@ -65,6 +63,12 @@ const TodoContainer = () => {
           ? { ...todo, tags: [...(todo.tags || []), newTag] }
           : todo
       )
+    );
+  }, []);
+
+  const assignUser = useCallback((id: string, user: string) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) => (todo.id === id ? { ...todo, user } : todo))
     );
   }, []);
 
@@ -95,6 +99,7 @@ const TodoContainer = () => {
           deleteTodoProps={delTodo}
           title="Pending"
           addTag={addTag}
+          assignUser={assignUser}
         />
         <TodosList
           todos={completedTodos}
@@ -102,6 +107,7 @@ const TodoContainer = () => {
           deleteTodoProps={delTodo}
           title="Done"
           addTag={addTag}
+          assignUser={assignUser}
         />
       </div>
     </div>

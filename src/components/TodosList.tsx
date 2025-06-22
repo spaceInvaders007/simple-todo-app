@@ -8,10 +8,18 @@ interface Props {
   todos: Todo[];
   title: string;
   addTag: (id: string, newTag: string) => void;
+  assignUser: (id: string, user: string) => void;
 }
 
 const TodosList = memo(
-  ({ deleteTodoProps, handleChangeProps, todos, title, addTag }: Props) => {
+  ({
+    deleteTodoProps,
+    handleChangeProps,
+    todos,
+    title,
+    addTag,
+    assignUser,
+  }: Props) => {
     return (
       <div style={{ width: "48%", marginTop: "20px" }}>
         <h2>{title}</h2>
@@ -22,6 +30,7 @@ const TodosList = memo(
             handleChangeProps={handleChangeProps}
             deleteTodoProps={deleteTodoProps}
             addTag={addTag}
+            assignUser={assignUser}
           />
         ))}
       </div>

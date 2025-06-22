@@ -1,15 +1,17 @@
 import React, { memo, useCallback, useState } from "react";
 import { Todo } from "./TodoContainer";
+import { users } from "../support-data/users";
 
 interface Props {
   handleChangeProps: (id: string) => void;
   deleteTodoProps: (id: string) => void;
   todo: Todo;
   addTag: (id: string, newTag: string) => void;
+  assignUser: (id: string, user: string) => void;
 }
 
 const TodoItem = memo(
-  ({ deleteTodoProps, handleChangeProps, todo, addTag }: Props) => {
+  ({ deleteTodoProps, handleChangeProps, todo, addTag, assignUser }: Props) => {
     const completedStyle = {
       fontStyle: "italic",
       color: "#d35e0f",
@@ -67,6 +69,12 @@ const TodoItem = memo(
               </span>
             ))}
         </div>
+        <select onChange={(e) => assignUser(id, e.target.value)}>
+          <option value="" />
+          {users.map((user) => (
+            <option>{user}</option>
+          ))}
+        </select>
       </li>
     );
   }
